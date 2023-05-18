@@ -1,0 +1,40 @@
+<pre>currentDateObj: {{ currentDateObj | json }}</pre>
+<pre>viewDateObj: {{ viewDateObj | json }}</pre>
+<pre>viewDate: {{ viewDate }}</pre>
+<button (click)="changeCalendarView(viewDate.month() + 1)">nextMonth</button>
+<button (click)="changeCalendarView(viewDate.month() - 1)">prevMonth</button>
+<mat-grid-list rowHeight="3em" cols="7">
+  <mat-grid-tile class="header-tile">Sunday</mat-grid-tile>
+  <mat-grid-tile class="header-tile">Monday</mat-grid-tile>
+  <mat-grid-tile class="header-tile">Tuesday</mat-grid-tile>
+  <mat-grid-tile class="header-tile">Wednesday</mat-grid-tile>
+  <mat-grid-tile class="header-tile">Thursday</mat-grid-tile>
+  <mat-grid-tile class="header-tile">Friday</mat-grid-tile>
+  <mat-grid-tile class="header-tile">Saturday</mat-grid-tile>
+</mat-grid-list>
+<mat-grid-list cols="7">
+  <mat-grid-tile
+    [ngClass]="{ disabled: day.options.disabled }"
+    class="matGridTile"
+    *ngFor="let day of calendar"
+  >
+    <mat-grid-tile-header
+      routerLink="/calendar/week"
+      *ngIf="!day.options.disabled"
+    >
+      {{ day.day }}
+      <p class="dateName">{{ day.dayName }}</p>
+    </mat-grid-tile-header>
+    <mat-chip-set class="mat-mdc-chip-set-stacked" role="list">
+      <mat-chip
+        routerLink="/calendar/week"
+        *ngFor="let event of day.options.events"
+        role="listitem"
+      >
+        {{ event.note }} | {{ event.time }}
+      </mat-chip>
+    </mat-chip-set>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<pre>calendar: {{ calendar | json }}</pre>

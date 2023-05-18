@@ -1,0 +1,44 @@
+<!-- have set divs for every 15 mins (dashed borders) 
+  with the borders for 30 mins slightly bolder dashed
+
+  event chips will be assigned and cover these with a slightly 
+  transparent overlay with their assigned color
+
+  timeslot components will contain 'chips' denoting events. 
+  a chip with area taking up 100% horizontal space and 25% vertical space = 15 min.
+  chips taking up 25% vertical space and 33% horizontal = 5 min
+
+  --wait -- 
+  wouldnt it be better to assign times to timeslot from 0 min to 60 min?
+
+  how would multiple hour events communicate that to multiple timeslots? do they need to?
+
+  minutes in a day?
+
+  lowest unit of time in calendar that an event can be assigned to is 5 minutes.  other than that - use a 'reminder'?
+
+  how do i keep this scalable and un-spaghetti code-y
+ -->
+<div class="week-view-container">
+  <section class="weekday-section">
+    <app-weekday-section weekday="Sunday" />
+  </section>
+  <section class="weekday-section">
+    <app-weekday-section weekday="Monday" />
+  </section>
+  <section class="weekday-section">
+    <app-weekday-section weekday="Tuesday" />
+  </section>
+  <section class="weekday-section">
+    <app-weekday-section weekday="Wednesday" />
+  </section>
+  <section class="weekday-section">
+    <app-weekday-section weekday="Thursday" />
+  </section>
+  <section class="weekday-section">
+    <app-weekday-section weekday="Friday" />
+  </section>
+  <section class="weekday-section">
+    <app-weekday-section weekday="Saturday" />
+  </section>
+</div>

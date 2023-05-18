@@ -1,0 +1,73 @@
+@import "../../../../node_modules/angular-calendar/css/angular-calendar.css";
+.calendar-container {
+  display: grid;
+  grid-template-columns: 150px 150px 150px 150px 150px 150px;
+  grid-template-rows: repeat(6, 150px);
+  column-gap: 10px;
+  justify-content: center;
+  row-gap: 15px;
+}
+
+.container {
+  width: 912px;
+  margin: auto;
+}
+
+.center {
+  text-align: center;
+}
+
+.monthYear {
+  display: flex;
+  max-width: 250px;
+  justify-content: space-between;
+  margin: 25px auto;
+  button {
+    font-size: xx-large;
+    background-color: inherit;
+    border-radius: 5px;
+    border-color: honeydew;
+    color: honeydew;
+  }
+}
+
+.dateName {
+  display: none;
+}
+
+.mat-grid-tile {
+  border: 1px solid white;
+
+  &:hover {
+    border-top: 3px solid white;
+    border-left: 3px solid white;
+    cursor: pointer;
+
+    .dateName {
+      display: inline;
+      margin: auto;
+      color: hsla(0, 0%, 100%, 0.527);
+    }
+  }
+  &.disabled {
+    cursor: default;
+    border: 1px solid white;
+  }
+  &.header-tile {
+    border: 1px solid white;
+    cursor: default;
+  }
+}
+
+.mat-grid-list {
+  margin: auto;
+
+  @media screen and (min-width: 750px) {
+    width: 95%;
+    max-width: 1600px;
+  }
+}
+
+span.cal-day-number {
+  color: black;
+}

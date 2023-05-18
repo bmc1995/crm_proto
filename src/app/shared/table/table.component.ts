@@ -1,14 +1,20 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-export interface PeriodicElement {
+export interface ExampleContact {
   name: string;
   phone: number;
   email: string;
 }
-const ELEMENT_DATA: PeriodicElement[] = [
+const ELEMENT_DATA: ExampleContact[] = [
   { name: 'Joe Shmoe', phone: 18885550255, email: 'example@test.com' },
   { name: 'Clayton Biggsby', phone: 18885550255, email: 'example@test.com' },
   { name: 'Tyrone Biggums', phone: 18885550255, email: 'example@test.com' },
@@ -26,13 +32,20 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements AfterViewInit {
-  displayedColumns: string[] = ['name', 'phone', 'email'];
-  @Input() dataSource = new MatTableDataSource(ELEMENT_DATA);
+export class TableComponent implements AfterViewInit, OnInit {
+  /** Default to example ELEMENT_DATA data for now. */
+  @Input() tableData: any[] = ELEMENT_DATA;
+  @Input() displayedColumns: string[] = ['name', 'phone', 'email'];
+  @Input() tableTitle: string = 'Table Title';
+  dataSource!: MatTableDataSource<any[]>;
 
   constructor(private _liveAnnouncer: LiveAnnouncer) {}
 
   @ViewChild(MatSort) sort!: MatSort;
+
+  ngOnInit() {
+    this.dataSource = new MatTableDataSource(this.tableData);
+  }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
