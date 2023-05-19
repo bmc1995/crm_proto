@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 export class WeekdayTimeslotComponent {
   constructor() {}
 
-  @Input() title: string = 'event title';
+  @Input() title: string = '';
   @Input() start: string = 'start time';
   @Input() end: string = 'end time';
   @Input() allDay: boolean = false;

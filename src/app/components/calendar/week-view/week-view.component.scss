@@ -1,26 +1,38 @@
 .week-view-container {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 20px repeat(24, 80px);
 
   // grid-auto-rows: auto;
 }
+// .time-section {
+//   border-bottom: 1px dashed white;
+//   :first-child {
+//     height: 102px;
+//     border-bottom: 1px dashed white;
+//   }
+//   :nth-child(n + 2) {
+//     height: 80px;
+//     border-top: 1px dashed white;
+//   }
+// }
 .weekday-section {
-  border: 1px solid white;
-  :nth-child(n) {
-    outline: 1px solid white;
-  }
+  // border: 1px solid white;
+  // :nth-child(n) {
+  //   outline: 1px solid white;
+  // }
   // :last-child {
   //   border-bottom: 1px solid white;
   // }
 }
 
-table {
-  border: 2px solid red;
-}
+// table {
+//   border: 2px solid red;
+// }
 
-tr {
-  border: 2px solid white;
-}
+// tr {
+//   border: 2px solid white;
+// }
 
 .text-center {
   text-align: center;
