@@ -22,6 +22,7 @@ import { ContactsComponent } from './components/contacts/contacts.component';
 import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
 import { ActivityComponent } from './components/activity/activity.component';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     MatCardModule,
     MatMenuModule,
     SharedModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

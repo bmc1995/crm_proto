@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
 import * as toObject from 'dayjs/plugin/toObject';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { CalendarService } from 'src/app/services/calendar.service';
 import { DaysOfWeek } from 'src/app/shared/enums/days-of-week';
 import {
   CalendarDay,
@@ -16,10 +17,12 @@ dayjs.extend(toObject);
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
-export class CalendarComponent {
-  constructor() {}
+export class CalendarComponent implements OnInit {
+  constructor(private calService: CalendarService) {}
+
   currDate = dayjs();
   viewDate: dayjs.Dayjs = this.currDate.clone();
+  events: any[] = [];
 
   currentDateObj = {
     currMonth: this.currDate.month(),
@@ -36,6 +39,12 @@ export class CalendarComponent {
     viewMonthName: this.viewDate.format('MMMM'),
     viewDayName: this.viewDate.format('dddd'),
   };
+  ngOnInit(): void {
+    this.calService.getEvents.subscribe((e) =>
+      e.map((calEvent) => this.events.push(calEvent))
+    );
+    console.log(this.events);
+  }
   updateDateObj() {
     this.viewDateObj = {
       viewMonth: this.viewDate.month(),
