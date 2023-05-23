@@ -3,21 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { CalendarRoutingModule } from './calendar-routing.module';
 import { CalendarComponent } from './calendar.component';
-import { DayCardComponent } from './day-card/day-card.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
-import { WeekViewComponent } from './week-view/week-view.component';
-import { WeekdaySectionComponent } from './weekday-section/weekday-section.component';
-import { WeekdayTimeslotComponent } from './weekday-timeslot/weekday-timeslot.component';
-import { DayViewComponent } from './day-view/day-view.component';
+import { CalendarDayComponent } from './calendar-day/calendar-day.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
-  declarations: [CalendarComponent, DayCardComponent, WeekViewComponent, WeekdaySectionComponent, WeekdayTimeslotComponent, DayViewComponent],
+  declarations: [CalendarComponent, CalendarDayComponent],
   imports: [
     CommonModule,
     CalendarRoutingModule,
     MatGridListModule,
     MatChipsModule,
+    MatCardModule,
   ],
 })
 export class CalendarModule {}

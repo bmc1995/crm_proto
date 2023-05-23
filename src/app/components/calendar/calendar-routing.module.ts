@@ -1,12 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CalendarComponent } from './calendar.component';
-import { WeekViewComponent } from './week-view/week-view.component';
 
-const routes: Routes = [
-  { path: '', component: CalendarComponent },
-  { path: 'week', component: WeekViewComponent },
-];
+const routes: Routes = [{ path: '', component: CalendarComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
