@@ -23,6 +23,7 @@ import { AccountSettingsComponent } from './components/account-settings/account-
 import { ActivityComponent } from './components/activity/activity.component';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { HttpClientModule } from '@angular/common/http';
+import { CalendarModule } from 'angular-calendar';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatMenuModule,
     SharedModule,
     HttpClientModule,
+    // CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ],
   providers: [],
   bootstrap: [AppComponent],
