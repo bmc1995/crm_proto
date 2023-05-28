@@ -32,15 +32,14 @@ export class CalendarComponent implements OnInit, OnDestroy {
     private calService: CalendarService,
     @Inject(DOCUMENT) private document: Document
   ) {}
-
-  view: CalendarView = CalendarView.Month;
-
   viewDate: Date = new Date();
-
   events: CalendarEvent[] = [];
   viewDateChange = new EventEmitter<Date>();
   viewChange = new EventEmitter<CalendarView>();
+
   CalendarView = CalendarView;
+  view: CalendarView = CalendarView.Month;
+
   locale: string = 'en';
 
   private readonly darkThemeClass = 'dark-theme';
@@ -52,10 +51,14 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.document.body.classList.add(this.darkThemeClass);
+    this.viewChange.subscribe((val) => {
+      this.view = val;
+    });
   }
 
   ngOnDestroy(): void {
     this.document.body.classList.remove(this.darkThemeClass);
+    this.viewChange.unsubscribe();
   }
 
   // currDate = dayjs();

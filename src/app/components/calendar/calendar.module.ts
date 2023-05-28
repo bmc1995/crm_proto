@@ -8,9 +8,10 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { DateAdapter, CalendarModule as CalLibModule } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarHeaderComponent } from './calendar-header/calendar-header.component';
 
 @NgModule({
-  declarations: [CalendarComponent],
+  declarations: [CalendarComponent, CalendarHeaderComponent],
   imports: [
     CommonModule,
     CalendarRoutingModule,
