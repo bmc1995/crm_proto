@@ -3,23 +3,31 @@ import {
   Component,
   EventEmitter,
   Inject,
+  OnChanges,
   OnDestroy,
   OnInit,
+  SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
 import { CalendarView, CalendarEvent } from 'angular-calendar';
-import * as dayjs from 'dayjs';
-import * as toObject from 'dayjs/plugin/toObject';
+import { subDays, startOfDay, addDays, parseISO } from 'date-fns';
 import { Observable, Subscription } from 'rxjs';
 import { CalendarService } from 'src/app/services/calendar.service';
-import { DaysOfWeek } from 'src/app/shared/enums/days-of-week';
-import {
-  CalendarDay,
-  CalendarDayOptions,
-  // CalendarEvent,
-} from 'src/app/shared/interfaces/calendar';
 
-dayjs.extend(toObject);
+const colors: any = {
+  red: {
+    primary: '#ad2121',
+    secondary: '#FAE3E3',
+  },
+  blue: {
+    primary: '#1e90ff',
+    secondary: '#D1E8FF',
+  },
+  yellow: {
+    primary: '#e3bc08',
+    secondary: '#FDF1BA',
+  },
+};
 
 @Component({
   selector: 'app-calendar',
@@ -33,7 +41,20 @@ export class CalendarComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: Document
   ) {}
   viewDate: Date = new Date();
-  events: CalendarEvent[] = [];
+  events: CalendarEvent[] = [
+    {
+      start: subDays(startOfDay(new Date()), 1),
+      end: addDays(new Date(), 1),
+      title: 'A 3 day event',
+      color: { ...colors.red },
+      allDay: true,
+      resizable: {
+        beforeStart: true,
+        afterEnd: true,
+      },
+      draggable: true,
+    },
+  ];
   viewDateChange = new EventEmitter<Date>();
   viewChange = new EventEmitter<CalendarView>();
 
@@ -54,139 +75,20 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.viewChange.subscribe((val) => {
       this.view = val;
     });
+
+    this.calService.getEvents().subscribe((e) => {
+      console.log(e);
+
+      this.events = e.map((ev) => {
+        ev.start = parseISO(new Date(ev.start).toISOString());
+        ev.end ? (ev.end = parseISO(new Date(ev.end).toISOString())) : null;
+        return ev;
+      });
+    });
   }
 
   ngOnDestroy(): void {
     this.document.body.classList.remove(this.darkThemeClass);
     this.viewChange.unsubscribe();
   }
-
-  // currDate = dayjs();
-  // viewDate: dayjs.Dayjs = this.currDate.clone();
-  // events: any[] = [];
-
-  // currentDateObj = {
-  //   currMonth: this.currDate.month(),
-  //   currDay: this.currDate.date(),
-  //   currYear: this.currDate.year(),
-  //   currMonthName: this.currDate.format('MMMM'),
-  //   currDayName: this.currDate.format('dddd'),
-  // };
-  // //temp impl
-  // viewDateObj = {
-  //   viewMonth: this.viewDate.month(),
-  //   viewDay: this.viewDate.date(),
-  //   viewYear: this.viewDate.year(),
-  //   viewMonthName: this.viewDate.format('MMMM'),
-  //   viewDayName: this.viewDate.format('dddd'),
-  // };
-  // ngOnInit(): void {
-  //   this.calService.getEvents.subscribe((e) =>
-  //     e.map((calEvent) => this.events.push(calEvent))
-  //   );
-  //   console.log(this.events);
-  // }
-  // updateDateObj() {
-  //   this.viewDateObj = {
-  //     viewMonth: this.viewDate.month(),
-  //     viewDay: this.viewDate.date(),
-  //     viewYear: this.viewDate.year(),
-  //     viewMonthName: this.viewDate.format('MMMM'),
-  //     viewDayName: this.viewDate.format('dddd'),
-  //   };
-  // }
-  // daysInMonth = this.viewDate.daysInMonth();
-  // calendar: CalendarDay[] = this.createCalendar();
-
-  // createCalDay(
-  //   day: number,
-  //   date: dayjs.Dayjs,
-  //   options: CalendarDayOptions
-  // ): CalendarDay {
-  //   return {
-  //     day,
-  //     dayName: dayjs(`${date.month() + 1}/${day}/${date.year()}`).format(
-  //       'dddd'
-  //     ),
-  //     options,
-  //   };
-  // }
-
-  // createCalEvent(
-  //   day: number,
-  //   month: string,
-  //   year: string,
-  //   time: number,
-  //   note: string
-  // ): CalendarEvent {
-  //   return { date: new Date(), day, month, year, time, note };
-  // }
-  // arrangeCalendar(viewDate: dayjs.Dayjs, cal: CalendarDay[]) {
-  //   const { dayName } = cal[0];
-
-  //   const tempDate = viewDate.clone();
-  //   const prevMonth = tempDate.set('month', tempDate.month() - 1).clone();
-
-  //   // zero-based
-  //   const genDiff = (dayOfWeek: number) =>
-  //     [...Array(dayOfWeek)].forEach((_, i) =>
-  //       cal.unshift(
-  //         this.createCalDay(prevMonth.daysInMonth() - i, prevMonth, {
-  //           events: [],
-  //           disabled: true,
-  //         })
-  //       )
-  //     );
-
-  //   if (dayName !== DaysOfWeek[0]) {
-  //     genDiff(DaysOfWeek[dayName as keyof typeof DaysOfWeek]);
-  //   }
-  // }
-
-  // createCalendar() {
-  //   const calendarDays = new Array(this.daysInMonth).fill({});
-
-  //   const calendar = calendarDays.map((_, i) => {
-  //     return this.createCalDay(i + 1, this.viewDate, {
-  //       events: [
-  //         this.createCalEvent(
-  //           i + 1,
-  //           this.viewDate.format('MMMM'),
-  //           this.viewDate.year().toString(),
-  //           1430,
-  //           'This is test event ' + i
-  //         ),
-  //         this.createCalEvent(
-  //           i + 1,
-  //           this.viewDate.format('MMMM'),
-  //           this.viewDate.year().toString(),
-  //           1430,
-  //           'This is test event ' + i
-  //         ),
-  //         this.createCalEvent(
-  //           i + 1,
-  //           this.viewDate.format('MMMM'),
-  //           this.viewDate.year().toString(),
-  //           1430,
-  //           'This is test event ' + i
-  //         ),
-  //       ],
-  //     });
-  //   });
-
-  //   this.arrangeCalendar(this.viewDate, calendar);
-
-  //   return calendar;
-  // }
-
-  // changeCalendarView(month: number = this.currentDateObj.currMonth) {
-  //   this.viewDate = this.viewDate.set('date', 1);
-  //   this.viewDate = this.viewDate.set('month', month);
-  //   console.log(this.viewDate);
-
-  //   this.daysInMonth = this.viewDate.daysInMonth();
-  //   this.updateDateObj();
-
-  //   this.calendar = this.createCalendar();
-  // }
 }
