@@ -1,41 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Contact } from 'src/app/models/contact.model';
 import { Customer } from 'src/app/models/customer.model';
 import { Lead } from 'src/app/models/lead.model';
 import { Opportunity } from 'src/app/models/opportunity.model';
+import { ContactService } from 'src/app/services/contact.service';
+import { CustomerService } from 'src/app/services/customer.service';
+import { LeadService } from 'src/app/services/lead.service';
+import { OpportunityService } from 'src/app/services/opportunity.service';
 
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss'],
 })
-export class ContactsComponent {
-  dummyCustomers: Customer[] = [
-    {
-      id: 1,
-      name: 'ABC Inc',
-      email: 'abc@inc.com',
-      phone: '123-456-7890',
-      address: '123 Main St',
-      city: 'Anytown',
-      state: 'CA',
-      postalCode: '12345',
-      country: 'USA',
-      website: 'https://www.abcinc.com',
-    },
-    {
-      id: 2,
-      name: 'XYZ Corp',
-      email: 'xyz@corp.com',
-      phone: '987-654-3210',
-      address: '456 Oak St',
-      city: 'Sometown',
-      state: 'NY',
-      postalCode: '67890',
-      country: 'USA',
-      website: 'https://www.xyzcorp.com',
-    },
-  ];
+export class ContactsComponent implements OnInit {
+  constructor(
+    private customerService: CustomerService,
+    private leadService: LeadService,
+    private contactService: ContactService,
+    private opportunityService: OpportunityService
+  ) {}
+
+  ngOnInit(): void {
+    this.customerService.getCustomers().subscribe((val) => {
+      this.customers = val;
+    });
+    this.contactService.getContacts().subscribe((val) => {
+      this.contacts = val;
+    });
+    this.opportunityService.getOpportunities().subscribe((val) => {
+      this.opportunities = val;
+    });
+    this.leadService.getLeads().subscribe((val) => {
+      this.leads = val;
+    });
+  }
+
+  customers: Customer[] = [];
+  leads: Lead[] = [];
+  contacts: Contact[] = [];
+  opportunities: Opportunity[] = [];
 
   dummyLeads: Lead[] = [
     {

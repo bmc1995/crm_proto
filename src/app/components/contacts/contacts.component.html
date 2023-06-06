@@ -1,17 +1,14 @@
 <h1 class="center">Customers</h1>
 <app-table
-  [tableData]="dummyCustomers"
+  [tableData]="customers"
   [displayedColumns]="customerKeys"
 ></app-table>
 <h1 class="center">Contacts</h1>
-<app-table
-  [tableData]="dummyContacts"
-  [displayedColumns]="contactKeys"
-></app-table>
+<app-table [tableData]="contacts" [displayedColumns]="contactKeys"></app-table>
 <h1 class="center">Opportunities</h1>
 <app-table
-  [tableData]="dummyOpportunities"
+  [tableData]="opportunities"
   [displayedColumns]="opportunityKeys"
 ></app-table>
 <h1 class="center">Leads</h1>
-<app-table [tableData]="dummyLeads" [displayedColumns]="leadKeys"></app-table>
+<app-table [tableData]="leads" [displayedColumns]="leadKeys"></app-table>
