@@ -7,12 +7,12 @@ import { Contact } from '../models/contact.model';
   providedIn: 'root',
 })
 export class ContactService {
-  private apiUrl = 'http://localhost:3000/contacts';
+  private apiUrl = 'http://localhost:3000/contact';
 
   constructor(private http: HttpClient) {}
 
   getContacts(): Observable<Contact[]> {
-    return this.http.get<Contact[]>(this.apiUrl);
+    return this.http.get<Contact[]>(this.apiUrl, { observe: 'body' });
   }
 
   getContact(id: number): Observable<Contact> {

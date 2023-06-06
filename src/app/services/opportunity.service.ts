@@ -7,7 +7,7 @@ import { Opportunity } from '../models/opportunity.model';
   providedIn: 'root',
 })
 export class OpportunityService {
-  private apiUrl = 'http://localhost:3000/opportunities';
+  private apiUrl = 'http://localhost:3000/opportunity';
 
   constructor(private http: HttpClient) {}
 

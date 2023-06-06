@@ -7,12 +7,12 @@ import { Customer } from '../models/customer.model';
   providedIn: 'root',
 })
 export class CustomerService {
-  private apiUrl = 'http://localhost:3000/customers';
+  private apiUrl = 'http://localhost:3000/customer';
 
   constructor(private http: HttpClient) {}
 
   getCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(this.apiUrl);
+    return this.http.get<Customer[]>(this.apiUrl, { responseType: 'json' });
   }
 
   getCustomer(id: number): Observable<Customer> {
